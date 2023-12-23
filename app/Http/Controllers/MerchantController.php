@@ -64,7 +64,7 @@ class MerchantController extends Controller
             return response()->json($order_stats);
 
         } catch (\Exception $e){
-            Log::info('An error occurred: at Line: ' . $e->getLine(). " The Error is: ".$e->getMessage());
+            Log::info('An error oc curred: at Line: ' . $e->getLine(). " The Error is: ".$e->getMessage());
         }
     }
 }
