@@ -8,6 +8,8 @@ use App\Services\MerchantService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class MerchantController extends Controller
 {
@@ -24,6 +26,7 @@ class MerchantController extends Controller
     public function orderStats(Request $request): JsonResponse
     {
         try {
+
             if (empty($request->from) || empty($request->to)) {
                 return response()->json(['error' => 'Invalid date range'], 400);
             }
@@ -61,8 +64,7 @@ class MerchantController extends Controller
             return response()->json($order_stats);
 
         } catch (\Exception $e){
-            dump($e->getMessage(), $e->getLine());
+            Log::info('An error occurred: at Line: ' . $e->getLine(). " The Error is: ".$e->getMessage());
         }
-         dd($order_stats, "gelc");
     }
 }
