@@ -51,10 +51,8 @@ class MerchantHttpTest extends TestCase
         ]);
 
         $between = $orders->whereBetween('created_at', [$from, $to]);
-
         $response = $this->actingAs($this->merchant->user)
             ->json('GET', route('merchant.order-stats'), compact('from', 'to'));
-
         $this->assertEquals($between->count(), $response['count']);
         $this->assertEquals($between->sum('subtotal'), $response['revenue']);
         $this->assertEquals($between->sum('commission_owed') - $noAffiliate->commission_owed, $response['commissions_owed']);
