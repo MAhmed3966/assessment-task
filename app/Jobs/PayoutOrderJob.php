@@ -16,6 +16,8 @@ class PayoutOrderJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public ApiService $apiService;
+
     /**
      * Create a new job instance.
      *
@@ -33,6 +35,9 @@ class PayoutOrderJob implements ShouldQueue
      */
     public function handle(ApiService $apiService)
     {
-        // TODO: Complete this method
+
+        $this->apiService = $apiService;
+        $this->apiService->sendPayout($this->order->affiliate->user->email, $this->order->commission_owed);
+        $check = $this->order->where('commission_owed', $this->order->commission_owed)->update(['payout_status' => "paid"]);
     }
 }

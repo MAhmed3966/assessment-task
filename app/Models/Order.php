@@ -27,7 +27,7 @@ class Order extends Model
         'commission_owed',
         'payout_status',
         'customer_email',
-        'created_at'
+        'created_at',
     ];
 
     public function merchant()

@@ -45,17 +45,13 @@ class AffiliateServiceTest extends TestCase
             ]);
 
         Mail::fake();
-
         $this->assertInstanceOf(Affiliate::class, $affiliate = $this->getAffiliateService()->register($this->merchant, $email = $this->faker->email(), $name = $this->faker->name(), 0.1));
-
-        Mail::assertSent(function (AffiliateCreated $mail) use ($affiliate) {
-            return $mail->affiliate->is($affiliate);
-        });
-
-        $this->assertDatabaseHas('users', [
+            Mail::assertSent(function (AffiliateCreated $mail) use ($affiliate) {
+                return $mail->affiliate->is($affiliate);
+            });
+            $this->assertDatabaseHas('users', [
             'email' => $email
         ]);
-
         $this->assertDatabaseHas('affiliates', [
             'merchant_id' => $this->merchant->id,
             'commission_rate' => 0.1,
@@ -66,7 +62,6 @@ class AffiliateServiceTest extends TestCase
     public function test_register_affiliate_when_email_in_use_as_merchant()
     {
         $this->expectException(AffiliateCreateException::class);
-
         $this->getAffiliateService()->register($this->merchant, $this->merchant->user->email, $this->faker->name(), 0.1);
     }
 
@@ -78,7 +73,6 @@ class AffiliateServiceTest extends TestCase
             ->for($this->merchant)
             ->for(User::factory())
             ->create();
-
         $this->getAffiliateService()->register($this->merchant, $affiliate->user->email, $this->faker->name(), 0.1);
     }
 }

@@ -25,7 +25,6 @@ class OrderWebhookTest extends TestCase
             ->shouldReceive('processOrder')
             ->with($data)
             ->once();
-
         $this->post(route('webhook'), $data)
             ->assertOk();
     }

@@ -65,6 +65,7 @@ class OrderServiceTest extends TestCase
             'commission_owed' => $data['subtotal_price'] * $affiliate->commission_rate,
             'external_order_id' => $data['order_id']
         ]);
+
     }
 
     public function test_process_duplicate_order()

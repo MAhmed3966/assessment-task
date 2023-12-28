@@ -56,11 +56,8 @@ class MerchantServiceTest extends TestCase
         $merchant = Merchant::factory()
             ->for(User::factory())
             ->create();
-
         $data = $this->getDummyData();
-
         $this->getMerchantService()->updateMerchant($merchant->user, $data);
-
         $this->assertDatabaseHas('merchants', [
             'id' => $merchant->id,
             'domain' => $data['domain'],
@@ -74,7 +71,6 @@ class MerchantServiceTest extends TestCase
         $merchant = Merchant::factory()
             ->for(User::factory())
             ->create();
-
         $this->assertTrue($this->getMerchantService()->findMerchantByEmail($merchant->user->email)->is($merchant));
     }
 
